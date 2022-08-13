@@ -62,4 +62,31 @@ class AuthController extends Controller
 
         return $this->apiResponse('not found user', '',403,  'not found user');
     }
+
+
+    public function register( Request $request ) {
+        $validator = validator::make( $request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required',
+           
+        ] );
+
+        if ( $validator->fails() ) {
+            return $this->apiResponseValidation( $validator );
+        }
+
+      
+
+        $user = $this->userModel->create( [
+            'name' => $request->post( 'name' ),
+            'email' => $request->post( 'email' ),
+            'password' => Hash::make( $request->post( 'password' ) ),
+            
+        ] );
+
+     
+
+        return $this->apiResponse( 'successfully', $user );
+    }
 }
