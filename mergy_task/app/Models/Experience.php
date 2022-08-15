@@ -9,16 +9,21 @@ class Experience extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'job_id',
         'job_title',
         'location',
         'start_date',
-        'end_data',
+        'end_date',
         
         
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function job(){
-        return $this->belongsTo(Job::class, 'user_id');
+        return $this->belongsTo(Job::class, 'job_id');
     }
 
     

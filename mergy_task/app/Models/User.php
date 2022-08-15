@@ -47,5 +47,10 @@ class User extends Authenticatable
         return $this->hasOne( Job::class, 'user_id');
     }
 
+    public function experience()
+    {
+        return $this->hasMany(Experience::class, 'user_id');
+    }
+
    
 }

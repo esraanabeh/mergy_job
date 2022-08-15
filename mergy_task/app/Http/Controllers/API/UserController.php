@@ -19,6 +19,7 @@ class UserController extends Controller
     {
         //
     }
+   
 
     /**
      * Show the form for creating a new resource.
@@ -39,32 +40,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = validator::make($request->all(), [
-            'image' => 'required|string',
-            'job' => 'required|string',
-            'cv' => 'required|string',
-            // 'job_title'=>'required',
-            // 'location'=>'required',
-            // 'start_date'=>'required',
-            // 'end_date'=>'required',
+     
+
             
-        ]);
-
-        if ($validator->fails()) {
-            return $this->apiResponseValidation($validator);
-        }
-
-        $user = User::whereId(auth()->id())->create([
-            
-            'image' => $request->post('image'),
-            'job' => $request->post('job'),
-            'cv' => $request->post('cv'),
-            
-        ]);
-
-        return $this->apiResponse('successfully', $user);
-
-
     }
 
     /**

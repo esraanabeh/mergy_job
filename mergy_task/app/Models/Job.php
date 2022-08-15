@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Job extends Model
+class Job extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory , InteractsWithMedia;
 
     protected $fillable = [
+        'user_id',
+        'ids',
+        'name',
+        'email',
         'job',
         
-        
     ];
+
+    // public $incrementing = false;
+
 
     public function getImageAttribute($value)
     {
@@ -24,12 +30,28 @@ class Job extends Model
         return $value;
     }
 
+    /**
+     * @return string
+     */
+    public function getCoverAttribute(): string
+    {
+        return $this->getFirstMediaUrl('cv');
+    }
+/**
+     * @var string[]
+     */
+    protected $appends= [
+        'cover'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function experience()
+    public function experiences()
     {
-        return $this->hasMany(Experience::class, 'user_id');
+        return $this->hasMany(Experience::class, 'job_id');
     }
+
+  
 }

@@ -31,5 +31,6 @@ Route::group(['middleware'=>['auth:sanctum'], 'prefix' => 'users'], function(){
     Route::apiResource('user',UserController::class);
     Route::apiResource('job',JobController::class);
     Route::apiResource('experience',ExperienceController::class);
+    Route::get('jobwithexperience', [ExperienceController::class, 'getJobWithExperience']);
 
 });

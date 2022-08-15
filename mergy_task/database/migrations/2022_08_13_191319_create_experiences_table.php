@@ -22,8 +22,8 @@ class CreateExperiencesTable extends Migration
 
             $table->string('job_title');
             $table->string('location');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

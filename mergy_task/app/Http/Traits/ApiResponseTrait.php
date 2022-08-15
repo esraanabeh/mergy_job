@@ -44,7 +44,8 @@ trait ApiResponseTrait
      */
     public function apiResponseValidation($validator)
     {
-        $response = $this->apiResponse('Invalid data send', '', 422, $validator->errors()->first());
+        // $response = $this->apiResponse('Invalid data send', '', 422, $validator->errors()->first());
+        $response = ['cod'=>400,'message'=>$validator->errors()->first()];
         throw new HttpResponseException($response);
     }
 }
