@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\User;
 use App\Models\Job;
+use Carbon\Carbon;
 use App\Models\Experience;
 use App\Http\Resources\JobResource;
 use App\Http\Resources\JobWithResource;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ExperienceController extends Controller
 {
@@ -39,8 +41,7 @@ class ExperienceController extends Controller
 
     public function index()
     {
-        //
-       
+        
         return $this->apiResponse('successfully', ExperienceResource::collection(Experience::all()));
     }
 
@@ -65,10 +66,10 @@ class ExperienceController extends Controller
     {
         //
         $validator = validator::make($request->all(), [
-            // 'job_title' => 'required',
-            // 'location' => 'required',
-            // 'start_date' => 'required',
-            // 'end_data' => 'required',    
+            'job_title' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'location' => 'required|string',
+            'start_date' => 'required|date_format:d/m/Y',
+            'end_date' => 'required|date_format:d/m/Y',    
            
         ]);
 
@@ -79,11 +80,11 @@ class ExperienceController extends Controller
             'job_id' => $request->post('job_id'),
             'job_title' => $request->post('job_title'),
             'location' => $request->post('location'),
-            'start_date' => $request->post('start_date'), 
-            'end_date' => $request->post('end_date'),  
+            'start_date' => Carbon::parse($request->post('start_date')), 
+            'end_date' => Carbon::parse($request->post('end_date')),  
         ]);
 
-        return $this->apiResponse('successfully', $experience);
+        return $this->apiResponse('successfully', new ExperienceResource($experience));
 
     }
 
@@ -116,9 +117,40 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request ,$id)
     {
         //
+        $validator = validator::make( $request->all(), [
+           
+            'job_title' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'location' => 'required|string',
+            'start_date' => 'required|date_format:d/m/Y',
+            'end_date' => 'required|date_format:d/m/Y',    
+            
+        ]);
+
+        if ($validator->fails()) {
+            return $this->apiResponseValidation( $validator );
+        }
+
+        $experience = $this->experienceModel->whereHas('job',function($query){
+            $query->whereUserId(Auth::id());
+        })->find($id);
+
+        if(!$experience){
+            $response = ['code'=>400,'message'=>'id not valid'];
+            throw new HttpResponseException(response()->json($response, 400));
+        }
+
+        $experience->update([
+          
+            'job_title' => $request->post( 'job_title' ),
+            'location' => $request->post( 'location' ),
+            'start_date' => Carbon::parse($request->post('start_date')), 
+            'end_date' => Carbon::parse($request->post('end_date')),  
+            
+        ]);
+        return $this->apiResponse('successfully', new ExperienceResource($experience));
     }
 
     /**
@@ -130,7 +162,13 @@ class ExperienceController extends Controller
     public function destroy($id)
     {
         //
+        $this->experienceModel->findorfail($id)->delete();
+
+        return $this->apiResponse( 'successfully' );
     }
+
+
+    
 
     public function getJobWithExperience(){
         $data = Job::whereUserId(Auth::id())->with('experiences')->first();

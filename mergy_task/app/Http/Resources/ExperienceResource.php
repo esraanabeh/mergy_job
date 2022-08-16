@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+use Carbon\Carbon;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,8 +19,8 @@ class ExperienceResource extends JsonResource
             'job_id' => $this->job_id,
             'job_title' => $this->job_title,
             'location' => $this->location ,
-            'start_date' => $this->start_date ,
-            'end_date' => $this->end_date , 
+            'start_date' =>Carbon::parse( $this->start_date)->format('d/m/Y') ,
+            'end_date' => Carbon::parse($this->end_date)->format('d/m/Y') , 
         ];
     }
 }

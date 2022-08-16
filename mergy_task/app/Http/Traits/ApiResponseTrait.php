@@ -29,7 +29,7 @@ trait ApiResponseTrait
     {
         $response = [
             'message' => $message,
-            'errors'  => $errors ?? 'None',
+            // 'errors'  => $errors ?? 'None',
             'data'    => $data ?? 'None'
         ];
 
@@ -45,7 +45,7 @@ trait ApiResponseTrait
     public function apiResponseValidation($validator)
     {
         // $response = $this->apiResponse('Invalid data send', '', 422, $validator->errors()->first());
-        $response = ['cod'=>400,'message'=>$validator->errors()->first()];
-        throw new HttpResponseException($response);
+        $response = ['code'=>400,'message'=>$validator->errors()->first()];
+        throw new HttpResponseException(response()->json($response, 400));
     }
 }

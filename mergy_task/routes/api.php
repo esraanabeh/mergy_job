@@ -28,9 +28,8 @@ Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=>['auth:sanctum'], 'prefix' => 'users'], function(){
-    Route::apiResource('user',UserController::class);
     Route::apiResource('job',JobController::class);
     Route::apiResource('experience',ExperienceController::class);
     Route::get('jobwithexperience', [ExperienceController::class, 'getJobWithExperience']);
-
+   
 });

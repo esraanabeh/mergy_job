@@ -13,7 +13,7 @@ class Job extends Model implements HasMedia
 
     protected $fillable = [
         'user_id',
-        'ids',
+        'uid',
         'name',
         'email',
         'job',

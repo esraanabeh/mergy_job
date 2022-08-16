@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+
 class JobController extends Controller
 
 
@@ -65,13 +66,14 @@ class JobController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         //
+        
         $validator = validator::make($request->all(), [
-            'ids' => 'required',
-            'name' => 'required',
-            'email' => 'required',
-            'job' => 'required',
-            'image' => 'required',
-            'cv' => 'required',
+            'uid' => 'required|string|unique:jobs,uid',
+            'name' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'email' => 'required|unique:jobs,email',
+            'job' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'image' => 'required|image|mimes:png,jpg,gif',
+            'cv' => 'required|mimes:pdf,docx',
            
         ]);
 
@@ -80,7 +82,7 @@ class JobController extends Controller
         }
 
         $job = $this->jobModel->create([
-            'ids'=>$request->post('ids'),
+            'uid'=>$request->post('uid'),
             'user_id' => Auth::id(),
             'name' => $request->post('name'),
             'email' => $request->post('email'), 
@@ -95,7 +97,7 @@ class JobController extends Controller
             $job->addMediaFromRequest('cv')->toMediaCollection('cv');
         }
 
-        return $this->apiResponse('successfully', $job);
+        return $this->apiResponse('successfully', new JobResource($job));
     }
 
     /**
@@ -134,13 +136,48 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UpdateJob $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *@return Application|RedirectResponse|Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request ,$id)
     {
-        //
+        $validator = validator::make( $request->all(), [
+           
+            'name' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'job' => 'required|regex:/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/',
+            'image' => 'required|image|mimes:png,jpg,gif',
+            'cv' => 'required|mimes:pdf,docx',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->apiResponseValidation( $validator );
+        }
+
+        $job = $this->jobModel->whereUserId(Auth::id())->findorfail($id);
+
+        if(!$job){
+            $response = ['code'=>400,'message'=>'id not valid'];
+            throw new HttpResponseException(response()->json($response, 400));
+        }
+        
+        $job->update([
+            'user_id' => auth()->id(),
+            'uid' => $request->uid,
+            'name' => $request->name,
+            'email' => $request->email,
+            'job' => $request->job,
+        ]);
+        
+       
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+            $job->addMediaFromRequest('image')->toMediaCollection('image');
+        }
+
+        if($request->hasFile('cv') && $request->file('cv')->isValid()) {
+            $job->addMediaFromRequest('cv')->toMediaCollection('cv');
+        }
+        return $this->apiResponse('successfully', new JobResource($job));
     }
 
     /**
@@ -149,8 +186,12 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id )
     {
         //
+       
+        $this->jobModel->findorfail($id)->delete();
+
+        return $this->apiResponse( 'successfully' );
     }
 }
