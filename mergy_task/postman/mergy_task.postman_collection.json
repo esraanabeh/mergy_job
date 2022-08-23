@@ -15,13 +15,24 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"esraa\",\r\n    \"email\":\"esraa@user.com\",\r\n    \"password\":123456789\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "esraa",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ess@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{url}}/auth/login",
@@ -42,13 +53,44 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"esraa\",\r\n    \"email\":\"esraa@user.com\",\r\n    \"password\":123456789\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "esraa",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ess@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "job",
+									"value": "php",
+									"type": "text"
+								},
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/D:/iti/F_CV_EN[139].pdf"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/iti/atore.PNG"
+								},
+								{
+									"key": "uid",
+									"value": "sdh5454@j",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{url}}/auth/register",
@@ -66,73 +108,10 @@
 			]
 		},
 		{
-			"name": "jobs",
+			"name": "user",
 			"item": [
 				{
-					"name": "createjob",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "uid",
-									"value": "hd123@zssssa",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "esraa nabeh",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "esraanabeh@user.com",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/D:/iti/49.PNG"
-								},
-								{
-									"key": "cv",
-									"type": "file",
-									"src": "/D:/iti/F_CV_EN[139].pdf"
-								},
-								{
-									"key": "job",
-									"value": "php developer",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/users/job",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								"job"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get_jobs",
+					"name": "get_users",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -167,7 +146,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "2|er3sXks0GIHEYbC9sof69FrFYiKEgXMxNy78nzvh",
 									"type": "string"
 								}
 							]
@@ -179,7 +158,7 @@
 							"formdata": [
 								{
 									"key": "uid",
-									"value": "djhdfl4@5465",
+									"value": "djhdfl4@5465ll",
 									"type": "text"
 								},
 								{
@@ -189,7 +168,7 @@
 								},
 								{
 									"key": "email",
-									"value": "esraa@user.com",
+									"value": "esrllkkaa@user.com",
 									"type": "text"
 								},
 								{
@@ -200,7 +179,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Dubai Store/OneDrive/Pictures/html5&css3/images/1.jpg"
+									"src": "/D:/iti/da.PNG"
 								},
 								{
 									"key": "cv",
@@ -211,17 +190,29 @@
 									"key": "_method",
 									"value": "put",
 									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/users/job/1",
+							"raw": "{{url}}/users/user/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"job",
+								"user",
 								"1"
 							]
 						}
@@ -236,7 +227,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|Sg37JU1hYU9g9jQy2eWVAPNxwiECxpAYNMQoYZkP",
+									"value": "2|er3sXks0GIHEYbC9sof69FrFYiKEgXMxNy78nzvh",
 									"type": "string"
 								}
 							]
@@ -253,13 +244,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users/job/1",
+							"raw": "{{url}}/users/user/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"job",
+								"user",
 								"1"
 							]
 						}
@@ -279,7 +270,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "1|LJE6WiKrUyrPEraCZ7GdOLRz1MODyfV7RWSFglqX",
 									"type": "string"
 								}
 							]
@@ -290,9 +281,10 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "job_id",
+									"key": "user_id",
 									"value": "1",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "job_title",
@@ -337,7 +329,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|Sg37JU1hYU9g9jQy2eWVAPNxwiECxpAYNMQoYZkP",
+									"value": "1|LJE6WiKrUyrPEraCZ7GdOLRz1MODyfV7RWSFglqX",
 									"type": "string"
 								}
 							]
@@ -403,7 +395,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "1|LJE6WiKrUyrPEraCZ7GdOLRz1MODyfV7RWSFglqX",
 									"type": "string"
 								}
 							]
@@ -411,14 +403,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/users/experience/4",
+							"raw": "{{url}}/users/experience/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
 								"experience",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -437,7 +429,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "1|LJE6WiKrUyrPEraCZ7GdOLRz1MODyfV7RWSFglqX",
 									"type": "string"
 								}
 							]
