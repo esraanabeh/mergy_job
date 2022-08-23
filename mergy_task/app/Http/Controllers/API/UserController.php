@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JobResource;
+use App\Models\User;
 use App\Http\Requests\UpdateUser;
 use Illuminate\Http\JsonResponse;
 use App\Http\Traits\ApiResponseTrait;
@@ -30,7 +31,7 @@ class UserController extends Controller
     {
        
         $users= $this->user->getAllUsers();
-        return $this->apiResponse('successfully', new JobResource($users));
+        return $this->apiResponse('successfully', JobResource::collection(User::all()));
 
     }
 
