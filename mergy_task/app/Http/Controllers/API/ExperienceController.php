@@ -106,8 +106,10 @@ class ExperienceController extends Controller
      */
     public function update(UpdateExperience $request ,$id)
     {
+        // dd(AUTH::ID());
 
         $experience= $this->experience->updateExperience( $id ,  $request);
+        // dd($experience);
         return $this->apiResponse('successfully', new ExperienceResource($experience));
     }
 

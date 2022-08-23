@@ -34,7 +34,7 @@ class UserRepository implements IUserRepository{
     }
 
     public function updateUser( $id ,  $request){
-        User::find($id)->update([
+       return User::find($id)->update([
             'uid' => $request->uid,
             'name' => $request->name,
             'email' => $request->email,

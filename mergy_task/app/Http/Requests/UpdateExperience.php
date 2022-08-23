@@ -33,4 +33,13 @@ class UpdateExperience extends FormRequest
             'end_date' => 'required|date_format:d/m/Y',  
         ];
     }
+
+
+     /**
+     * @param Validator $validator
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $this->apiResponseValidation($validator);
+    }
 }

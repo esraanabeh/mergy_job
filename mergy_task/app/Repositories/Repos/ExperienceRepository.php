@@ -38,7 +38,7 @@ class ExperienceRepository implements IExperienceRepository{
 
 
  public function updateExperience( $id ,  $request){
-     Experience::whereUserId(Auth::id())->find($id)->update([
+    return Experience::whereUserId(Auth::id())->find($id)->update([
             // 'user_id' => Auth::id(),
             'job_title' => $request->post( 'job_title' ),
             'location' => $request->post( 'location' ),
