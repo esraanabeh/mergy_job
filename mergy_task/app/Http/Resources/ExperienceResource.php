@@ -16,7 +16,7 @@ class ExperienceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'job_id' => $this->job_id,
+            'user_id' => $this->user_id,
             'job_title' => $this->job_title,
             'location' => $this->location ,
             'start_date' =>Carbon::parse( $this->start_date)->format('d/m/Y') ,

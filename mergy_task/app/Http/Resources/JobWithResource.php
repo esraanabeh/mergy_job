@@ -23,7 +23,7 @@ class JobWithResource extends JsonResource
             'image' => $this->getFirstMediaUrl('image'),
             'cv' => $this->getFirstMediaUrl('cv') ,
             
-            'experience' => ExperienceResource::collection($this->experiences),
+            'experience' => ExperienceResource::collection($this->experience),
         ];
     }
 }

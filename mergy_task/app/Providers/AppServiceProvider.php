@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Interfaces\IUserRepository;
+use App\Repositories\Repos\UserRepository;
+use App\Repositories\Interfaces\IExperienceRepository;
+use App\Repositories\Repos\ExperienceRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(IUserRepository::class, UserRepository::class);
+        $this->app->bind(IExperienceRepository::class, ExperienceRepository::class);
     }
 
     /**

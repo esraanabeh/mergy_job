@@ -18,6 +18,7 @@ class JobResource extends JsonResource
             'id' => $this->uid,
             'name' => $this->name,
             'email' => $this->email ,
+            'password' => $this->password ,
             'job' => $this->job ,
             'image' => $this->getFirstMediaUrl('image'),
             'cv' => $this->getFirstMediaUrl('cv'),

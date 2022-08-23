@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\FileUploaderTrait;
+use App\Repositories\Interfaces\IUserRepository;
 use App\Models\User;
+use App\Http\Resources\JobResource;
+use App\Http\Requests\StoreUser;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,13 +23,14 @@ class AuthController extends Controller
      * @var User
      */
     protected $userModel;
+    protected $user;
 
     /**
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(IUserRepository $user)
     {
-        $this->userModel = $user;
+        $this->user = $user;
     }
    
     
@@ -46,7 +50,7 @@ class AuthController extends Controller
             return $this->apiResponseValidation($validator);
         }
 
-        $user = $this->userModel->whereEmail($request->post('email'))->first();
+        $user = User::whereEmail($request->post('email'))->first();
 
         if ($user) {
             if (!Hash::check($request->post('password'), $user->password)) {
@@ -57,36 +61,28 @@ class AuthController extends Controller
 
             $token = $user->createToken('token')->plainTextToken;
 
-            return $this->apiResponse('successfully', $user, 200 , null, $token);
+            return $this->apiResponse('successfully', new JobResource($user), 200 , null, $token);
         }
 
         return $this->apiResponse('not found user', '',403,  'not found user');
     }
 
 
-    public function register( Request $request ) {
-        $validator = validator::make( $request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required',
-           
-        ] );
+    public function register( StoreUser $request ) {
 
-        if ( $validator->fails() ) {
-            return $this->apiResponseValidation( $validator );
+
+        $user= $this->user->createUser($request);
+
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+            $user->addMediaFromRequest('image')->toMediaCollection('image');
+        }
+
+        if($request->hasFile('cv') && $request->file('cv')->isValid()) {
+            $user->addMediaFromRequest('cv')->toMediaCollection('cv');
         }
 
       
-
-        $user = $this->userModel->create( [
-            'name' => $request->post( 'name' ),
-            'email' => $request->post( 'email' ),
-            'password' => Hash::make( $request->post( 'password' ) ),
-            
-        ] );
-
      
-
-        return $this->apiResponse( 'successfully', $user );
+        return $this->apiResponse( 'successfully',new JobResource($user) );
     }
 }

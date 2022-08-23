@@ -9,7 +9,7 @@ class Experience extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'job_id',
+        'user_id',
         'job_title',
         'location',
         'start_date',
@@ -22,9 +22,7 @@ class Experience extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function job(){
-        return $this->belongsTo(Job::class, 'job_id');
-    }
+   
 
     
 }
