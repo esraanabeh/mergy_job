@@ -24,7 +24,7 @@
 								},
 								{
 									"key": "email",
-									"value": "ess@gmail.com",
+									"value": "esraa@user.com",
 									"type": "text"
 								},
 								{
@@ -118,7 +118,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "1|LJE6WiKrUyrPEraCZ7GdOLRz1MODyfV7RWSFglqX",
 									"type": "string"
 								}
 							]
@@ -126,13 +126,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/users/job",
+							"raw": "{{url}}/users/user",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"job"
+								"user"
 							]
 						}
 					},
@@ -146,7 +146,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|er3sXks0GIHEYbC9sof69FrFYiKEgXMxNy78nzvh",
+									"value": "3|VT57nlEVmYwhDeeRNXfcVRjWEj0Aw6L6TVp4LLYN",
 									"type": "string"
 								}
 							]
@@ -168,7 +168,7 @@
 								},
 								{
 									"key": "email",
-									"value": "esrllkkaa@user.com",
+									"value": "esraaa@user.com",
 									"type": "text"
 								},
 								{
@@ -179,7 +179,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/D:/iti/da.PNG"
+									"src": "/D:/iti/controller.PNG"
 								},
 								{
 									"key": "cv",
@@ -357,7 +357,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|aGX8pmczYCP6UH2SoR6FyqVQxofqmpKFuUMbxa8b",
+									"value": "2|ugQzWvS3t9N9vqYrMOojJo4IGO17aYYPRi8QruL4",
 									"type": "string"
 								}
 							]
@@ -366,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"job_title\":\"web developer\",\r\n    \"location\":\"30.071265,31.021114\",\r\n    \"start_date\":\"03/02/2020\",\r\n    \"end_date\":\"03/02/2022\"\r\n}",
+							"raw": "{\r\n    \"job_title\":\" php developer\",\r\n    \"location\":\"30.071265,31.021114\",\r\n    \"start_date\":\"05/02/2020\",\r\n    \"end_date\":\"03/02/2022\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
